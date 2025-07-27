@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GTG - Animated Faces</title>
+  <style>
+    body { margin: 0; background: #000; overflow: hidden; font-family: sans-serif; color: white; }
+    .girl {
+      position: absolute;
+      height: auto;
+      width: auto;
+      max-width: 160px;
+      max-height: 160px;
+      cursor: pointer;
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.7); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .clicked {
+      animation: pulse 0.4s ease-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    #scoreDisplay {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+    }
+    #endButton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: red;
+      color: white;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+    #endMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 24px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border: 2px solid white;
+      display: none;
+      z-index: 999;
+      max-width: 90%;
+    }
+    #endMessage a {
+      display: block;
+      margin-top: 15px;
+      color: #1DA1F2;
+      text-decoration: underline;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="scoreDisplay">Score: 0</div>
+  <button id="endButton">END</button>
+  <div id="endMessage"></div>
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+  <script>
+    const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png"];
+    const clickSound = document.getElementById("clickSound");
+    let score = 0;
+    let gameInterval;
+
+    function spawnGirl() {
+      const img = document.createElement("img");
+      img.src = girls[Math.floor(Math.random() * girls.length)];
+      img.className = "girl";
+      img.style.top = Math.random() * (window.innerHeight - 160) + "px";
+      img.style.left = Math.random() * (window.innerWidth - 160) + "px";
+
+      img.onclick = () => {
+        img.classList.add("clicked");
+        clickSound.currentTime = 0;
+        clickSound.play();
+        score++;
+        document.getElementById("scoreDisplay").textContent = "Score: " + score;
+        setTimeout(() => img.remove(), 300);
+      };
+
+      document.body.appendChild(img);
+    }
+
+    gameInterval = setInterval(spawnGirl, 300); // faster interval
+
+    document.getElementById("endButton").onclick = () => {
+      clearInterval(gameInterval);
+      const allGirls = document.querySelectorAll(".girl");
+      allGirls.forEach(g => g.remove());
+
+      const message = `Thanks for playing GTG mindless game.<br><br>I got ${score} girls! $gtg #getthegirl.ai<br><br>Share your score and tag some friends to win GTG tokens!`;
+      const tweetText = encodeURIComponent(`I got ${score} girls in GTG! $gtg #getthegirl.ai`);
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+
+      const endMessageDiv = document.getElementById("endMessage");
+      endMessageDiv.innerHTML = message + `<a href="${tweetUrl}" target="_blank">Share your score via X</a>`;
+      endMessageDiv.style.display = "block";
+    };
+  </script>
+</body>
+</html>
