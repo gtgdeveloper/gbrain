@@ -31,10 +31,7 @@
       top: 20px;
       left: 20px;
       font-size: 24px;
-<<<<<<< HEAD
-=======
       z-index: 10;
->>>>>>> 08e6eff (Initial commit)
     }
     #endButton {
       position: fixed;
@@ -46,10 +43,7 @@
       font-size: 18px;
       border: none;
       cursor: pointer;
-<<<<<<< HEAD
-=======
       z-index: 10;
->>>>>>> 08e6eff (Initial commit)
     }
     #endMessage {
       position: fixed;
@@ -72,18 +66,6 @@
       text-decoration: underline;
       font-size: 18px;
     }
-<<<<<<< HEAD
-  </style>
-</head>
-<body>
-  <div id="scoreDisplay">Score: 0</div>
-  <button id="endButton">END</button>
-  <div id="endMessage"></div>
-  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
-
-  <script>
-    const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png"];
-=======
     canvas#explosionCanvas {
       position: fixed;
       top: 0;
@@ -144,8 +126,7 @@
   <canvas id="explosionCanvas"></canvas>
 
   <script>
-    const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png", 'g15.png', 'g16.png', 'g17.png', 'g18.png', 'g19.png', 'picture20.png'];
->>>>>>> 08e6eff (Initial commit)
+    const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png", 'g15.png', 'g16.png', 'g17.png', 'g18.png', 'g19.png'];
     const clickSound = document.getElementById("clickSound");
     let score = 0;
     let gameInterval;
@@ -157,26 +138,13 @@
       img.style.top = Math.random() * (window.innerHeight - 160) + "px";
       img.style.left = Math.random() * (window.innerWidth - 160) + "px";
 
-<<<<<<< HEAD
-      img.onclick = () => {
-=======
       
       img.onclick = (e) => {
->>>>>>> 08e6eff (Initial commit)
         img.classList.add("clicked");
         clickSound.currentTime = 0;
         clickSound.play();
         score++;
         document.getElementById("scoreDisplay").textContent = "Score: " + score;
-<<<<<<< HEAD
-        setTimeout(() => img.remove(), 300);
-      };
-
-      document.body.appendChild(img);
-    }
-
-    gameInterval = setInterval(spawnGirl, 300); // faster interval
-=======
         checkBonus();
         checkMusic(); checkBonus2(); checkBonus3(); checkBonus4(); checkBonus5(); checkBonus6(); checkBonus7();
 
@@ -190,78 +158,23 @@
 
 
       document.body.appendChild(img);
-
-    if (img.src.includes('picture20.png')) {
-      img.onclick = () => {
-        const body = document.body;
-        html2canvas(body).then(canvas => {
-          const ctx = canvas.getContext('2d');
-          const width = canvas.width;
-          const height = canvas.height;
-          const imageData = ctx.getImageData(0, 0, width, height);
-          const data = imageData.data;
-
-          let particles = [];
-          for (let y = 0; y < height; y += 4) {
-            for (let x = 0; x < width; x += 4) {
-              const i = (y * width + x) * 4;
-              const color = `rgba(${data[i]},${data[i+1]},${data[i+2]},${data[i+3]/255})`;
-              particles.push({ x, y, color });
-            }
-          }
-
-          body.innerHTML = '';
-          particles.forEach(p => {
-            const div = document.createElement('div');
-            div.style.position = 'absolute';
-            div.style.width = '4px';
-            div.style.height = '4px';
-            div.style.left = p.x + 'px';
-            div.style.top = p.y + 'px';
-            div.style.background = p.color;
-            div.style.transition = 'all 2s ease-out';
-            body.appendChild(div);
-            setTimeout(() => {
-              div.style.transform = `translate(${(Math.random()-0.5)*500}px, ${(Math.random()-0.5)*500}px)`;
-              div.style.opacity = 0;
-            }, 0);
-          });
-
-          setTimeout(() => {
-            alert('💥 GAME OVER');
-            location.reload();
-          }, 2500);
-        });
-      };
-    }
-
     }
 
     gameInterval = setInterval(spawnGirl, 300);
->>>>>>> 08e6eff (Initial commit)
 
     document.getElementById("endButton").onclick = () => {
       clearInterval(gameInterval);
       const allGirls = document.querySelectorAll(".girl");
       allGirls.forEach(g => g.remove());
 
-<<<<<<< HEAD
-      const message = `Thanks for playing GTG mindless game.<br><br>I got ${score} girls! $gtg #getthegirl.ai<br><br>Share your score and tag some friends to win GTG tokens!`;
-      const tweetText = encodeURIComponent(`I got ${score} girls in GTG! $gtg #getthegirl.ai`);
-=======
       const message = `Thanks for playing GTG no brain required game.<br><br>I got ${score} girls! $gtg #getthegirl.ai<br><br>Share your score and tag some friends to win GTG tokens!`;
       const tweetText = encodeURIComponent(`I have played Get The Girl and I got ${score} girls. Check it out at https://gbrain.onrender.com $gtg #get the girl`);
->>>>>>> 08e6eff (Initial commit)
       const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
       const endMessageDiv = document.getElementById("endMessage");
       endMessageDiv.innerHTML = message + `<a href="${tweetUrl}" target="_blank">Share your score via X</a>`;
       endMessageDiv.style.display = "block";
     };
-<<<<<<< HEAD
-  </script>
-</body>
-=======
 
     // Explosion canvas
     const canvas = document.getElementById('explosionCanvas');
@@ -340,10 +253,7 @@
 
 
     
-    
-let clickCount = 0;
-
-let heartburstActive = false;
+    let heartburstActive = false;
     let heartburstTimeout;
 
     function activateHeartburst() {
@@ -693,5 +603,4 @@ animateParticles();
   </script>
 
   </body>
->>>>>>> 08e6eff (Initial commit)
 </html>
