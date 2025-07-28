@@ -31,6 +31,10 @@
       top: 20px;
       left: 20px;
       font-size: 24px;
+<<<<<<< HEAD
+=======
+      z-index: 10;
+>>>>>>> 08e6eff (Initial commit)
     }
     #endButton {
       position: fixed;
@@ -42,6 +46,10 @@
       font-size: 18px;
       border: none;
       cursor: pointer;
+<<<<<<< HEAD
+=======
+      z-index: 10;
+>>>>>>> 08e6eff (Initial commit)
     }
     #endMessage {
       position: fixed;
@@ -64,6 +72,7 @@
       text-decoration: underline;
       font-size: 18px;
     }
+<<<<<<< HEAD
   </style>
 </head>
 <body>
@@ -74,6 +83,69 @@
 
   <script>
     const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png"];
+=======
+    canvas#explosionCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+  
+    
+    #headerContainer {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+    #logoImg {
+  height: 160px;
+}
+    #scoreDisplay {
+      font-size: 24px;
+      margin-left: 200px;
+    }
+
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <audio id="bgMusic" src="mix.mp3" loop></audio>
+  <button id="musicToggle" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    z-index: 1000;
+    display: none;
+  ">Music Off</button>
+
+
+  <div id="headerContainer">
+    <a href="https://dexscreener.com/solana/c9wcbqrepm4axbnrc4j1rjjn5zxjjbydb2rw9inajli5" target="_blank" id="logoLink">
+      <img src="gtg-logo.gif" alt="GTG Logo" id="logoImg">
+    </a>
+    <div id="scoreDisplay">Score: 0</div>
+  </div>
+
+
+  
+
+  
+  <button id="endButton">END</button>
+  <div id="endMessage"></div>
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+  <canvas id="explosionCanvas"></canvas>
+
+  <script>
+    const girls = ["girl_happy.png", "girl_wink.png", "girl_laugh.png", "girl_surprised.png", "girl10.png", "girl11.png", "girl12.png", "girl13.png", 'g15.png', 'g16.png', 'g17.png', 'g18.png', 'g19.png', 'picture20.png'];
+>>>>>>> 08e6eff (Initial commit)
     const clickSound = document.getElementById("clickSound");
     let score = 0;
     let gameInterval;
@@ -85,12 +157,18 @@
       img.style.top = Math.random() * (window.innerHeight - 160) + "px";
       img.style.left = Math.random() * (window.innerWidth - 160) + "px";
 
+<<<<<<< HEAD
       img.onclick = () => {
+=======
+      
+      img.onclick = (e) => {
+>>>>>>> 08e6eff (Initial commit)
         img.classList.add("clicked");
         clickSound.currentTime = 0;
         clickSound.play();
         score++;
         document.getElementById("scoreDisplay").textContent = "Score: " + score;
+<<<<<<< HEAD
         setTimeout(() => img.remove(), 300);
       };
 
@@ -98,20 +176,522 @@
     }
 
     gameInterval = setInterval(spawnGirl, 300); // faster interval
+=======
+        checkBonus();
+        checkMusic(); checkBonus2(); checkBonus3(); checkBonus4(); checkBonus5(); checkBonus6(); checkBonus7();
+
+        const rect = img.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        createExplosion(x, y);
+
+        setTimeout(() => img.remove(), 300);
+      };
+
+
+      document.body.appendChild(img);
+
+    if (img.src.includes('picture20.png')) {
+      img.onclick = () => {
+        const body = document.body;
+        html2canvas(body).then(canvas => {
+          const ctx = canvas.getContext('2d');
+          const width = canvas.width;
+          const height = canvas.height;
+          const imageData = ctx.getImageData(0, 0, width, height);
+          const data = imageData.data;
+
+          let particles = [];
+          for (let y = 0; y < height; y += 4) {
+            for (let x = 0; x < width; x += 4) {
+              const i = (y * width + x) * 4;
+              const color = `rgba(${data[i]},${data[i+1]},${data[i+2]},${data[i+3]/255})`;
+              particles.push({ x, y, color });
+            }
+          }
+
+          body.innerHTML = '';
+          particles.forEach(p => {
+            const div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.width = '4px';
+            div.style.height = '4px';
+            div.style.left = p.x + 'px';
+            div.style.top = p.y + 'px';
+            div.style.background = p.color;
+            div.style.transition = 'all 2s ease-out';
+            body.appendChild(div);
+            setTimeout(() => {
+              div.style.transform = `translate(${(Math.random()-0.5)*500}px, ${(Math.random()-0.5)*500}px)`;
+              div.style.opacity = 0;
+            }, 0);
+          });
+
+          setTimeout(() => {
+            alert('💥 GAME OVER');
+            location.reload();
+          }, 2500);
+        });
+      };
+    }
+
+    }
+
+    gameInterval = setInterval(spawnGirl, 300);
+>>>>>>> 08e6eff (Initial commit)
 
     document.getElementById("endButton").onclick = () => {
       clearInterval(gameInterval);
       const allGirls = document.querySelectorAll(".girl");
       allGirls.forEach(g => g.remove());
 
+<<<<<<< HEAD
       const message = `Thanks for playing GTG mindless game.<br><br>I got ${score} girls! $gtg #getthegirl.ai<br><br>Share your score and tag some friends to win GTG tokens!`;
       const tweetText = encodeURIComponent(`I got ${score} girls in GTG! $gtg #getthegirl.ai`);
+=======
+      const message = `Thanks for playing GTG no brain required game.<br><br>I got ${score} girls! $gtg #getthegirl.ai<br><br>Share your score and tag some friends to win GTG tokens!`;
+      const tweetText = encodeURIComponent(`I have played Get The Girl and I got ${score} girls. Check it out at https://gbrain.onrender.com $gtg #get the girl`);
+>>>>>>> 08e6eff (Initial commit)
       const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
       const endMessageDiv = document.getElementById("endMessage");
       endMessageDiv.innerHTML = message + `<a href="${tweetUrl}" target="_blank">Share your score via X</a>`;
       endMessageDiv.style.display = "block";
     };
+<<<<<<< HEAD
   </script>
 </body>
+=======
+
+    // Explosion canvas
+    const canvas = document.getElementById('explosionCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+
+    function createExplosion(x, y) {
+      for (let i = 0; i < 20; i++) {
+        particles.push({
+          x,
+          y,
+          radius: Math.random() * 4 + 2,
+          color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+          dx: (Math.random() - 0.5) * 6,
+          dy: (Math.random() - 0.5) * 6,
+          life: 40
+        });
+      }
+    }
+
+    
+    // Bonus2 video logic
+    const bonus2Video = document.createElement('video');
+    bonus2Video.src = 'bonus2.webm';
+    bonus2Video.setAttribute('autoplay', '');
+    bonus2Video.setAttribute('muted', '');
+    bonus2Video.setAttribute('playsinline', '');
+    bonus2Video.setAttribute('loop', '');
+    bonus2Video.removeAttribute('controls');
+    bonus2Video.style.position = 'fixed';
+    bonus2Video.style.top = '20%';
+    bonus2Video.style.left = '50%';
+    bonus2Video.style.transform = 'translate(-50%, -50%)';
+    bonus2Video.style.zIndex = '1000';
+    bonus2Video.style.display = 'none';
+    bonus2Video.style.width = '480px';
+    bonus2Video.style.height = '270px';
+    bonus2Video.style.cursor = 'pointer';
+    bonus2Video.style.border = '2px solid white';
+    bonus2Video.style.boxShadow = '0 0 10px white';
+    bonus2Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus2Video);
+
+    let bonus2Shown = false;
+    let bonus2Timeout;
+
+    function checkBonus2() {
+      if (!bonus2Shown && score > 100) {
+        bonus2Shown = true;
+        bonus2Video.style.display = 'block';
+        bonus2Video.play();
+
+        // Hide after 60 seconds if not clicked
+        bonus2Timeout = setTimeout(() => {
+          bonus2Video.pause();
+          bonus2Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus2Video.onclick = () => {
+      score += heartburstActive ? 2 : 1;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus2Video.pause();
+      bonus2Video.style.display = 'none';
+      clearTimeout(bonus2Timeout);
+    };
+
+
+    
+    
+let clickCount = 0;
+
+let heartburstActive = false;
+    let heartburstTimeout;
+
+    function activateHeartburst() {
+      heartburstActive = true;
+      document.body.style.border = "10px solid hotpink";
+      clearTimeout(heartburstTimeout);
+      heartburstTimeout = setTimeout(() => {
+        heartburstActive = false;
+        document.body.style.border = "none";
+      }, 10000); // lasts for 10 seconds
+    }
+
+
+
+    const bonus3Video = document.createElement('video');
+    bonus3Video.src = 'bonus3.webm';
+    bonus3Video.setAttribute('autoplay', '');
+    bonus3Video.setAttribute('muted', '');
+    bonus3Video.setAttribute('playsinline', '');
+    bonus3Video.setAttribute('loop', '');
+    bonus3Video.removeAttribute('controls');
+    bonus3Video.style.position = 'fixed';
+    bonus3Video.style.top = '50%';
+    bonus3Video.style.left = '50%';
+    bonus3Video.style.transform = 'translate(-50%, -50%)';
+    bonus3Video.style.zIndex = '1000';
+    bonus3Video.style.display = 'none';
+    bonus3Video.style.width = '480px';
+    bonus3Video.style.height = '270px';
+    bonus3Video.style.cursor = 'pointer';
+    bonus3Video.style.border = '2px solid white';
+    bonus3Video.style.boxShadow = '0 0 10px white';
+    bonus3Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus3Video);
+
+    let bonus3Shown = false;
+    let bonus3Timeout;
+
+    function checkBonus3() {
+      if (!bonus3Shown && score === 300) {
+        bonus3Shown = true;
+        bonus3Video.style.display = 'block';
+        bonus3Video.play();
+
+        bonus3Timeout = setTimeout(() => {
+          bonus3Video.pause();
+          bonus3Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus3Video.onclick = () => {
+      score += 30;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus3Video.pause();
+      bonus3Video.style.display = 'none';
+      clearTimeout(bonus3Timeout);
+    };
+    
+
+    const bonus4Video = document.createElement('video');
+    bonus4Video.src = 'bonus4.webm';
+    bonus4Video.setAttribute('autoplay', '');
+    bonus4Video.setAttribute('muted', '');
+    bonus4Video.setAttribute('playsinline', '');
+    bonus4Video.setAttribute('loop', '');
+    bonus4Video.removeAttribute('controls');
+    bonus4Video.style.position = 'fixed';
+    bonus4Video.style.top = '50%';
+    bonus4Video.style.left = '50%';
+    bonus4Video.style.transform = 'translate(-50%, -50%)';
+    bonus4Video.style.zIndex = '1000';
+    bonus4Video.style.display = 'none';
+    bonus4Video.style.width = '480px';
+    bonus4Video.style.height = '270px';
+    bonus4Video.style.cursor = 'pointer';
+    bonus4Video.style.border = '2px solid white';
+    bonus4Video.style.boxShadow = '0 0 10px white';
+    bonus4Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus4Video);
+
+    let bonus4Shown = false;
+    let bonus4Timeout;
+
+    function checkBonus4() {
+      if (!bonus4Shown && score === 400) {
+        bonus4Shown = true;
+        bonus4Video.style.display = 'block';
+        bonus4Video.play();
+
+        bonus4Timeout = setTimeout(() => {
+          bonus4Video.pause();
+          bonus4Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus4Video.onclick = () => {
+      score += 30;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus4Video.pause();
+      bonus4Video.style.display = 'none';
+      clearTimeout(bonus4Timeout);
+    };
+    
+
+    const bonus5Video = document.createElement('video');
+    bonus5Video.src = 'bonus5.webm';
+    bonus5Video.setAttribute('autoplay', '');
+    bonus5Video.setAttribute('muted', '');
+    bonus5Video.setAttribute('playsinline', '');
+    bonus5Video.setAttribute('loop', '');
+    bonus5Video.removeAttribute('controls');
+    bonus5Video.style.position = 'fixed';
+    bonus5Video.style.top = '50%';
+    bonus5Video.style.left = '50%';
+    bonus5Video.style.transform = 'translate(-50%, -50%)';
+    bonus5Video.style.zIndex = '1000';
+    bonus5Video.style.display = 'none';
+    bonus5Video.style.width = '480px';
+    bonus5Video.style.height = '270px';
+    bonus5Video.style.cursor = 'pointer';
+    bonus5Video.style.border = '2px solid white';
+    bonus5Video.style.boxShadow = '0 0 10px white';
+    bonus5Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus5Video);
+
+    let bonus5Shown = false;
+    let bonus5Timeout;
+
+    function checkBonus5() {
+      if (!bonus5Shown && score === 500) {
+        bonus5Shown = true;
+        bonus5Video.style.display = 'block';
+        bonus5Video.play();
+
+        bonus5Timeout = setTimeout(() => {
+          bonus5Video.pause();
+          bonus5Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus5Video.onclick = () => {
+      score += 30;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus5Video.pause();
+      bonus5Video.style.display = 'none';
+      clearTimeout(bonus5Timeout);
+    };
+    
+
+    const bonus6Video = document.createElement('video');
+    bonus6Video.src = 'bonus6.webm';
+    bonus6Video.setAttribute('autoplay', '');
+    bonus6Video.setAttribute('muted', '');
+    bonus6Video.setAttribute('playsinline', '');
+    bonus6Video.setAttribute('loop', '');
+    bonus6Video.removeAttribute('controls');
+    bonus6Video.style.position = 'fixed';
+    bonus6Video.style.top = '50%';
+    bonus6Video.style.left = '50%';
+    bonus6Video.style.transform = 'translate(-50%, -50%)';
+    bonus6Video.style.zIndex = '1000';
+    bonus6Video.style.display = 'none';
+    bonus6Video.style.width = '480px';
+    bonus6Video.style.height = '270px';
+    bonus6Video.style.cursor = 'pointer';
+    bonus6Video.style.border = '2px solid white';
+    bonus6Video.style.boxShadow = '0 0 10px white';
+    bonus6Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus6Video);
+
+    let bonus6Shown = false;
+    let bonus6Timeout;
+
+    function checkBonus6() {
+      if (!bonus6Shown && score === 600) {
+        bonus6Shown = true;
+        bonus6Video.style.display = 'block';
+        bonus6Video.play();
+
+        bonus6Timeout = setTimeout(() => {
+          bonus6Video.pause();
+          bonus6Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus6Video.onclick = () => {
+      score += 30;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus6Video.pause();
+      bonus6Video.style.display = 'none';
+      clearTimeout(bonus6Timeout);
+    };
+    
+
+
+    const bonus7Video = document.createElement('video');
+    bonus7Video.src = 'bonus7.webm';
+    bonus7Video.setAttribute('autoplay', '');
+    bonus7Video.setAttribute('muted', '');
+    bonus7Video.setAttribute('playsinline', '');
+    bonus7Video.setAttribute('loop', '');
+    bonus7Video.removeAttribute('controls');
+    bonus7Video.style.position = 'fixed';
+    bonus7Video.style.top = '50%';
+    bonus7Video.style.left = '50%';
+    bonus7Video.style.transform = 'translate(-50%, -50%)';
+    bonus7Video.style.zIndex = '1000';
+    bonus7Video.style.display = 'none';
+    bonus7Video.style.width = '480px';
+    bonus7Video.style.height = '270px';
+    bonus7Video.style.cursor = 'pointer';
+    bonus7Video.style.border = '2px solid white';
+    bonus7Video.style.boxShadow = '0 0 10px white';
+    bonus7Video.style.pointerEvents = 'auto';
+    document.body.appendChild(bonus7Video);
+
+    let bonus7Shown = false;
+    let bonus7Timeout;
+
+    function checkBonus7() {
+      if (!bonus7Shown && score >= 1000) {
+        bonus7Shown = true;
+        bonus7Video.style.display = 'block';
+        bonus7Video.play();
+
+        bonus7Timeout = setTimeout(() => {
+          bonus7Video.pause();
+          bonus7Video.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonus7Video.onclick = () => {
+      score += 100;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonus7Video.pause();
+      bonus7Video.style.display = 'none';
+      clearTimeout(bonus7Timeout);
+    };
+
+
+function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        p.radius *= 0.96;
+        p.life--;
+        if (p.life <= 0 || p.radius <= 0.5) {
+          particles.splice(i, 1);
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    
+    
+    
+    
+    // Bonus video logic
+    const bonusVideo = document.createElement('video');
+    bonusVideo.src = 'bonus-video.webm';
+    bonusVideo.setAttribute('autoplay', '');
+    bonusVideo.setAttribute('muted', '');
+    bonusVideo.setAttribute('playsinline', '');
+    bonusVideo.setAttribute('loop', '');
+    bonusVideo.removeAttribute('controls');
+    bonusVideo.style.position = 'fixed';
+    bonusVideo.style.top = '70%';
+    bonusVideo.style.left = '50%';
+    bonusVideo.style.transform = 'translate(-50%, -50%)';
+    bonusVideo.style.zIndex = '1000';
+    bonusVideo.style.display = 'none';
+    bonusVideo.style.width = '480px';
+    bonusVideo.style.height = '270px';
+    bonusVideo.style.cursor = 'pointer';
+    bonusVideo.style.border = '2px solid white';
+    bonusVideo.style.boxShadow = '0 0 10px white';
+    bonusVideo.style.pointerEvents = 'auto';
+    document.body.appendChild(bonusVideo);
+
+    let bonusShown = false;
+    let bonusTimeout;
+
+    function checkBonus() {
+      if (!bonusShown && score > 10) {
+        bonusShown = true;
+        bonusVideo.style.display = 'block';
+        bonusVideo.play();
+
+        // Auto-hide after 60 seconds if not clicked
+        bonusTimeout = setTimeout(() => {
+          bonusVideo.pause();
+          bonusVideo.style.display = 'none';
+        }, 60000);
+      }
+    }
+
+    bonusVideo.onclick = () => {
+      score += heartburstActive ? 2 : 1;
+      document.getElementById("scoreDisplay").textContent = "Score: " + score;
+      bonusVideo.pause();
+      bonusVideo.style.display = 'none';
+      clearTimeout(bonusTimeout);
+    };
+
+    
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.25;
+    const musicToggle = document.getElementById('musicToggle');
+    let musicStarted = false;
+
+    function checkMusic() {
+      if (!musicStarted && score > 30) {
+        musicStarted = true;
+        bgMusic.play();
+        musicToggle.style.display = 'block';
+      }
+    }
+
+    musicToggle.onclick = () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.textContent = "Music Off";
+      } else {
+        bgMusic.pause();
+        musicToggle.textContent = "Music On";
+      }
+    };
+
+    
+    setInterval(() => {
+      if (!heartburstActive && Math.random() < 0.3) {
+        activateHeartburst();
+      }
+    }, 60000);
+
+animateParticles();
+  </script>
+
+  </body>
+>>>>>>> 08e6eff (Initial commit)
 </html>
